@@ -66,10 +66,9 @@ class Bot(GoslingAgent):
         
 
         if oppenent_closer_to_ball:
-            print('oppenent is closer')
-            if self.me.boost <= 50:
-                print('hopfully getting boost')
+            self.set_intent(goto(self.friend_goal.location))
             
+
 
 
         
