@@ -137,8 +137,10 @@ class GoslingAgent(BaseAgent):
     
     def is_ball_infront_of_us(self):
         ball_local = self.me.local(self.ball.location - self.me.location)
-
         return ball_local[0] > 0
+    def is_boost_infront_of_us(self):
+        boost_local = self.me.local(self.get_closest_large_boost - self.me.location)
+        return boost_local
 
     def run(self):
         # override this with your strategy code

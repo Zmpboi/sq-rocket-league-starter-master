@@ -37,22 +37,23 @@ class Bot(GoslingAgent):
 
         if we_closer_to_ball:
             if len(hits['at_opponent_goal']) > 0:
-                #attacking
-                self.set_intent(hits['at_opponent_goal'][0])
-                print('Attacking!')
-                return
+                if self.is_ball_infront_of_us:
+                    print('Attacking!')
+                    self.set_intent(hits['at_opponent_goal'][0])
+                    return
         
 
         if len(hits['away_from_our_net']) > 0:
             self.set_intent(hits['away_from_our_net'][0])
             print('hitting our post')
             return
+        
 
 
         if self.me.boost == 100:
             self.set_intent(short_shot(self.foe_goal.location))
             return
-        
+        1
 
 
         if self.is_in_front_of_ball():
@@ -79,9 +80,11 @@ class Bot(GoslingAgent):
             self.set_intent(goto(closest_boost.location))
             return
         
-        if self.me.boost < 5 and self.get_intent != 'Attacking!':
-            print('good question')
-            return
+        if self.me.boost < 5:
+            if len(hits['at_opponent_goal']) == 0:
+                if self.get_intent is not None: 
+                    self.set_intent(closest_boost)
+                    return
         
 
 
